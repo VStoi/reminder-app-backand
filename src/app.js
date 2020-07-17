@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const bodyParser = require('body-parser')
 const { createServer } = require('http');
 
 dotenv.config();
@@ -9,7 +10,7 @@ const userRouter = require('./routes/userRouter');
 
 const app = express();
 const http = createServer(app);
-
+app.use(bodyParser.json())
 userRouter(app);
 
 const PORT = process.env.PORT ? process.env.PORT : 3003;
