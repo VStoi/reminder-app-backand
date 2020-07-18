@@ -96,6 +96,25 @@ class ReminderController{
         }
     }
 
+    async getInvitedReminders(req, res){
+        const userId = req.user._id
+        const invitedRemindersFullModel = await ReminderInvite.find({userId}).populate({
+            path: 'reminderId',
+            populate: {
+                path: 'author',
+            }
+        })
+        const invitedReminders = invitedRemindersFullModel.map(obj => {
+            return {
+                _id: obj._id,
+                reminder: obj.reminderId,
+                isAccepted: obj.isAccepted
+            }
+        })
+        return res.json(invitedReminders)
+
+    }
+
 }
 
 module.exports = ReminderController;

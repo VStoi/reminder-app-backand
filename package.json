@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./src/app.js",
-    "watch": "nodemon ./src/app.js"
+    "watch": "nodemon ./src/app.js",
+    "prewatch":"fuser -k 4000/tcp && echo 'Terminated' || echo 'Nothing was running on the PORT' && nodemon ./src/app.js"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
