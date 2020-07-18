@@ -1,0 +1,2 @@
+# reminder-app-backand
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b33aeef37c7d43878bcbe4a99faf1066)](https://app.codacy.com/gh/VStoi/reminder-app-backand?utm_source=github.com&utm_medium=referral&utm_content=VStoi/reminder-app-backand&utm_campaign=Badge_Grade_Dashboard)
