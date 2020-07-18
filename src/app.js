@@ -5,7 +5,7 @@ const { createServer } = require('http');
 
 dotenv.config();
 
-require('./core/db');
+const connect = require('./core/db');
 const userRouter = require('./routes/userRouter');
 const reminderRouter = require('./routes/reminderRouter');
 
@@ -19,6 +19,11 @@ reminderRouter(app);
 
 const PORT = process.env.PORT ? process.env.PORT : 3000;
 
-http.listen(PORT, function () {
-    console.log(`Server: http://localhost:${PORT}`);
-});
+connect()
+    .then(() => {
+        http.listen(PORT, function () {
+            console.log(`Server: http://localhost:${PORT}`);
+        });
+    })
+
+module.exports = app;
