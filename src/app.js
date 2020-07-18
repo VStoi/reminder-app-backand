@@ -7,13 +7,17 @@ dotenv.config();
 
 require('./core/db');
 const userRouter = require('./routes/userRouter');
+const reminderRouter = require('./routes/reminderRouter');
 
 const app = express();
 const http = createServer(app);
-app.use(bodyParser.json())
-userRouter(app);
 
-const PORT = process.env.PORT ? process.env.PORT : 3003;
+app.use(bodyParser.json())
+
+userRouter(app);
+reminderRouter(app);
+
+const PORT = process.env.PORT ? process.env.PORT : 3000;
 
 http.listen(PORT, function () {
     console.log(`Server: http://localhost:${PORT}`);
