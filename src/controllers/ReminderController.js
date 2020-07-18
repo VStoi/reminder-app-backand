@@ -6,7 +6,7 @@ const {
     validateReminder,
     validateDeleteReminder,
     validateInviteReminder
-    } = require('../utils/validations/ReminderValidation');
+    } = require("../utils/validations/ReminderValidation");
 
 
 class ReminderController{
@@ -104,15 +104,14 @@ class ReminderController{
                 path: "author"
             }
         })
-        const invitedReminders = invitedRemindersFullModel.map(obj => {
+        const invitedReminders = invitedRemindersFullModel.map((obj) => {
             return {
                 _id: obj._id,
                 reminder: obj.reminderId,
                 isAccepted: obj.isAccepted
             }
         })
-        return res.json(invitedReminders)
-
+        return res.json(invitedReminders);
     }
 
 }
