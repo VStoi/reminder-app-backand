@@ -1,12 +1,12 @@
-const Reminder = require('../models/Remider');
-const User = require('../models/User');
-const ReminderInvite = require('../models/ReminderInvite');
+const Reminder = require("../models/Remider");
+const User = require("../models/User");
+const ReminderInvite = require("../models/ReminderInvite");
 
 const {
     validateReminder,
     validateDeleteReminder,
     validateInviteReminder
-    } = require('../utils/validations/ReminderValidation')
+    } = require("../utils/validations/ReminderValidation");
 
 
 class ReminderController{
@@ -94,6 +94,24 @@ class ReminderController{
         }catch (error) {
             return res.status(404).json({error: "Reminder is not found"})
         }
+    }
+
+    async getInvitedReminders(req, res){
+        const userId = req.user._id
+        const invitedRemindersFullModel = await ReminderInvite.find({userId}).populate({
+            path: "reminderId",
+            populate: {
+                path: "author"
+            }
+        })
+        const invitedReminders = invitedRemindersFullModel.map((obj) => {
+            return {
+                _id: obj._id,
+                reminder: obj.reminderId,
+                isAccepted: obj.isAccepted
+            }
+        })
+        return res.json(invitedReminders);
     }
 
 }

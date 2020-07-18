@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi')
+const Joi = require("@hapi/joi");
 
 const registerSchema = Joi.object({
     firstName: Joi.string()
@@ -16,7 +16,7 @@ const registerSchema = Joi.object({
         .min(6)
         .max(50)
         .required()
-})
+});
 
 const loginSchema = Joi.object({
     email: Joi.string()
@@ -26,14 +26,14 @@ const loginSchema = Joi.object({
         .min(6)
         .max(50)
         .required()
-})
+});
 
 const validateRegistration = (data) => {
     return registerSchema.validate(data)
-}
+};
 const validateLogin = (data) => {
     return loginSchema.validate(data)
-}
+};
 
 module.exports.validateRegistration = validateRegistration;
 module.exports.validateLogin = validateLogin;
