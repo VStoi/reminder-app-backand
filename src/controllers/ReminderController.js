@@ -160,7 +160,7 @@ class ReminderController{
             return res.status(400).json({error: error.details[0].message});
         }
         try {
-            const invite = await ReminderInvite.findByIdAndUpdate(inviteId)
+            const invite = await ReminderInvite.findByIdAndUpdate(inviteId);
             if (!invite ||String(invite.userId) !== userId) {
                 return res.status(404).json({error: "Invite is not found"});
             }
