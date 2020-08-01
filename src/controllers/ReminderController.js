@@ -69,18 +69,18 @@ class ReminderController{
         try{
             const reminder = await Reminder.findOne().and([{_id: req.body.reminderId}, {author: userId}])
             if (!reminder){
-                return res.status(404).json({error: "Reminder not found"})
+                return res.status(404).json({error: "Reminder not found"});
             }
             const reminderInviteExist = await ReminderInvite.findOne().and([
                 {reminderId: req.body.reminderId},
                 {userId: req.body.userId}
             ])
             if (reminderInviteExist){
-                return res.status(403).json({error: "Reminder invite already exist"})
+                return res.status(403).json({error: "Reminder invite already exist"});
             }
-            const remindablePerson = await User.findById(req.body.userId)
+            const remindablePerson = await User.findById(req.body.userId);
             if (!remindablePerson){
-                return res.status(404).json({error: "User is not found"})
+                return res.status(404).json({error: "User is not found"});
             }
             try {
                 const reminderInvite = await ReminderInvite({
@@ -88,16 +88,16 @@ class ReminderController{
                     userId: req.body.userId,
                     isAccepted: false,
                     isDecided: false
-                })
-                const savedReminderInvite = await reminderInvite.save()
+                });
+                const savedReminderInvite = await reminderInvite.save();
                 return res.status(201).json({
                     savedReminderInvite
-                })
+                });
             }catch(e){
-                return res.json({error: e})
+                return res.json({error: e});
             }
         }catch (error) {
-            return res.status(404).json({error: "Reminder is not found"})
+            return res.status(404).json({error: "Reminder is not found"});
         }
     }
 
@@ -132,48 +132,48 @@ class ReminderController{
         const inviteId = req.params._id;
         const {error} = validateId(inviteId);
         if (error){
-            return res.status(400).json({error: error.details[0].message})
+            return res.status(400).json({error: error.details[0].message});
         }
         try {
-            const invite = await ReminderInvite.findByIdAndUpdate(inviteId)
+            const invite = await ReminderInvite.findByIdAndUpdate(inviteId);
             if (!invite ||String(invite.userId) !== userId) {
-                return res.status(404).json({error: "Invite is not found"})
+                return res.status(404).json({error: "Invite is not found"});
             }
             if (invite.isDecided){
                 return res.status(400).json({
                     error: "Invite is already accepted"
-                })
+                });
             }
-            invite.set({isAccepted: true, isDecided: true})
+            invite.set({isAccepted: true, isDecided: true});
             invite.save();
-            return res.status(204).json({})
+            return res.status(204).json({});
         } catch (e) {
-            return res.status(500).json({e})
+            return res.status(500).json({e});
         }
     }
 
     async declineReminder(req, res) {
-        const userId = req.user._id
+        const userId = req.user._id;
         const inviteId = req.params._id;
         const {error} = validateId(inviteId);
         if (error){
-            return res.status(400).json({error: error.details[0].message})
+            return res.status(400).json({error: error.details[0].message});
         }
         try {
             const invite = await ReminderInvite.findByIdAndUpdate(inviteId)
             if (!invite ||String(invite.userId) !== userId) {
-                return res.status(404).json({error: "Invite is not found"})
+                return res.status(404).json({error: "Invite is not found"});
             }
             if (invite.isDecided){
                 return res.status(400).json({
                     error: "Invite is already declined"
                 })
             }
-            invite.set({isDecided: true})
-            invite.save()
-            return res.status(204).json({})
+            invite.set({isDecided: true});
+            invite.save();
+            return res.status(204).json({});
         } catch (e) {
-            return res.status(500).json({e})
+            return res.status(500).json({e});
         }
     }
 }
