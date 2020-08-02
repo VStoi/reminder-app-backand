@@ -11,12 +11,12 @@ const connect = () => {
             })
             .then((res, err) => {
                 if (err) {
-                    return reject(err)
+                    return reject(err);
                 }
-                console.info('Connection to DB established');
-                resolve()
-            })
-    })
-}
+                console.info("Connection to DB established");
+                resolve();
+            });
+    });
+};
 
 module.exports = connect;

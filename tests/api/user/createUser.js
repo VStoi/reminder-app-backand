@@ -1,5 +1,5 @@
-const expect = require('chai').expect;
-const request = require('supertest');
+const expect = require("chai").expect;
+const request = require("supertest");
 
 const app = require("../../../src/app");
 
@@ -81,7 +81,7 @@ describe("Create user Positive POST /user", () => {
             })
             .catch((err) => done(err));
     });
-})
+});
 
 
 describe("Create user Negative POST /user", () => {
@@ -92,14 +92,14 @@ describe("Create user Negative POST /user", () => {
                 mongoose.connect(mongoUri, { useUnifiedTopology: true,  useNewUrlParser: true })
                 done();
             });
-    })
+    });
     after(async () => {
         await mongoose.disconnect();
         await mongoServer.stop();
     });
 
-    it('errors due to required first name', (done) => {
-        request(app).post('/user')
+    it("errors due to required first name", (done) => {
+        request(app).post("/user")
             .send({
                 "firstName": "",
                 "lastName": "Test Last Name",
@@ -115,8 +115,8 @@ describe("Create user Negative POST /user", () => {
             .catch((err) => done(err));
     });
 
-    it('errors due to short first name', (done) => {
-        request(app).post('/user')
+    it("errors due to short first name", (done) => {
+        request(app).post("/user")
             .send({
                 "firstName": "q",
                 "lastName": "Test Last Name",
@@ -132,8 +132,8 @@ describe("Create user Negative POST /user", () => {
             .catch((err) => done(err));
     });
 
-    it('errors due to long first name', (done) => {
-        request(app).post('/user')
+    it("errors due to long first name", (done) => {
+        request(app).post("/user")
             .send({
                 "firstName": "max symbols first nam",
                 "lastName": "Test Last Name",
@@ -149,8 +149,8 @@ describe("Create user Negative POST /user", () => {
             .catch((err) => done(err));
     });
 
-    it('errors due to required last name', (done) => {
-        request(app).post('/user')
+    it("errors due to required last name", (done) => {
+        request(app).post("/user")
             .send({
                 "firstName": "fname",
                 "lastName": "",
@@ -166,8 +166,8 @@ describe("Create user Negative POST /user", () => {
             .catch((err) => done(err));
     });
 
-    it('errors due to short last name', (done) => {
-        request(app).post('/user')
+    it("errors due to short last name", (done) => {
+        request(app).post("/user")
             .send({
                 "firstName": "fname",
                 "lastName": "q",
@@ -183,8 +183,8 @@ describe("Create user Negative POST /user", () => {
             .catch((err) => done(err));
     });
 
-    it('errors due to long last name', (done) => {
-        request(app).post('/user')
+    it("errors due to long last name", (done) => {
+        request(app).post("/user")
             .send({
                 "firstName": "fname",
                 "lastName": "max symbols last name",
@@ -200,5 +200,5 @@ describe("Create user Negative POST /user", () => {
             .catch((err) => done(err));
     });
 
-})
+});
 
