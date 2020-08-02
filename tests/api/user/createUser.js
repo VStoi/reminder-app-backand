@@ -12,14 +12,13 @@ describe("Create user Positive POST /user", () => {
         mongoServer = new MongoMemoryServer();
         mongoServer.getUri()
             .then((mongoUri) => {
-                mongoose.connect(mongoUri, {useUnifiedTopology: true, useNewUrlParser: true})
+                mongoose.connect(mongoUri, {useUnifiedTopology: true, useNewUrlParser: true});
                 done();
             });
     });
     afterEach(async () => {
         await mongoose.disconnect();
         await mongoServer.stop();
-
     });
 
     it("Valid creation of user", (done) => {
@@ -32,11 +31,11 @@ describe("Create user Positive POST /user", () => {
             })
             .then((res) => {
                 const user = res.body.user;
-                expect(user.firstName).to.equals("Test name")
-                expect(user.lastName).to.equals("Test Last Name")
-                expect(user).to.contain.property("password")
-                expect(user.email).to.equals("test@gmail.com")
-                expect(user).to.contain.property("_id")
+                expect(user.firstName).to.equals("Test name");
+                expect(user.lastName).to.equals("Test Last Name");
+                expect(user).to.contain.property("password");
+                expect(user.email).to.equals("test@gmail.com");
+                expect(user).to.contain.property("_id");
                 done();
             })
             .catch((err) => done(err));
@@ -52,11 +51,11 @@ describe("Create user Positive POST /user", () => {
             })
             .then((res) => {
                 const user = res.body.user;
-                expect(user.firstName).to.equals("Te")
-                expect(user.lastName).to.equals("La")
-                expect(user).to.contain.property("password")
-                expect(user.email).to.equals("qq@qa.ua")
-                expect(user).to.contain.property("_id")
+                expect(user.firstName).to.equals("Te");
+                expect(user.lastName).to.equals("La");
+                expect(user).to.contain.property("password");
+                expect(user.email).to.equals("qq@qa.ua");
+                expect(user).to.contain.property("_id");
                 done();
             })
             .catch((err) => done(err));
@@ -72,11 +71,11 @@ describe("Create user Positive POST /user", () => {
             })
             .then((res) => {
                 const user = res.body.user;
-                expect(user.firstName).to.equals("max symbols first na")
-                expect(user.lastName).to.equals("max symbols last nam")
-                expect(user).to.contain.property("password")
-                expect(user.email).to.equals("qqqqqqqqqqqqqqqqqqqqqqqq@qaqqqqqqqqqqqqqqqqqqqqqqqqqqqq.ua")
-                expect(user).to.contain.property("_id")
+                expect(user.firstName).to.equals("max symbols first na");
+                expect(user.lastName).to.equals("max symbols last nam");
+                expect(user).to.contain.property("password");
+                expect(user.email).to.equals("qqqqqqqqqqqqqqqqqqqqqqqq@qaqqqqqqqqqqqqqqqqqqqqqqqqqqqq.ua");
+                expect(user).to.contain.property("_id");
                 done();
             })
             .catch((err) => done(err));
@@ -89,7 +88,7 @@ describe("Create user Negative POST /user", () => {
         mongoServer = new MongoMemoryServer();
         mongoServer.getUri()
             .then((mongoUri) => {
-                mongoose.connect(mongoUri, { useUnifiedTopology: true,  useNewUrlParser: true })
+                mongoose.connect(mongoUri, { useUnifiedTopology: true,  useNewUrlParser: true });
                 done();
             });
     });
