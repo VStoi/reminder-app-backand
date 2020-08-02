@@ -13,7 +13,7 @@ const connect = () => {
                 if (err) {
                     return reject(err);
                 }
-                console.info("Connection to DB established");
+                console.log("Connection to DB established");
                 resolve();
             });
     });
