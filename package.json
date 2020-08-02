@@ -21,7 +21,7 @@
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^8.0.1",
-    "mockgoose": "^8.0.4",
+    "mongodb-memory-server": "^6.6.3",
     "mongoose": "^5.9.22",
     "morgan": "~1.9.1",
     "pug": "2.0.0-beta11",
