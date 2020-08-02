@@ -176,6 +176,33 @@ class ReminderController{
             return res.status(500).json({e});
         }
     }
+
+    async edit(req, res){
+        const reminderId = req.params._id;
+        const reminderData = {
+            text: req.body.text,
+            description: req.body.description,
+            remindAt: req.body.remindAt
+        };
+        const {error} = validateReminder(req.body);
+        if (error){
+            return res.status(400).json({error: error.details[0].message});
+        }
+        const idError = validateId(reminderId).error;
+        if (idError){
+            return res.status(400).json({error: idError.details[0].message});
+        }
+        const userId = req.user._id;
+        const reminderToEdit = await Reminder.findByIdAndUpdate(reminderId);
+        if (!reminderToEdit || String(reminderToEdit.author) !== userId){
+            return res.status(404).json({
+                error: "Reminder is not found"
+            });
+        }
+        reminderToEdit.set(reminderData);
+        reminderToEdit.save();
+        return res.json(reminderToEdit);
+    };
 }
 
 module.exports = ReminderController;

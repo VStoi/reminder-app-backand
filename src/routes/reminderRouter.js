@@ -4,6 +4,8 @@ const verifyToken = require("../middlewares/verifyToken");
 const reminderRouter = (app) => {
     const Reminder = new ReminderController();
 
+    app.put("/reminder/:_id/", verifyToken,  Reminder.edit);
+
     app.patch("/reminder/invite/:_id/accept", verifyToken,  Reminder.acceptReminder);
     app.patch("/reminder/invite/:_id/decline", verifyToken,  Reminder.declineReminder);
     app.post("/reminder/invite", verifyToken,  Reminder.invite);
