@@ -8,6 +8,7 @@ const reminderRouter = (app) => {
     app.patch("/reminder/invite/:_id/decline", verifyToken,  Reminder.declineReminder);
     app.post("/reminder/invite", verifyToken,  Reminder.invite);
     app.get("/reminder/invite", verifyToken,  Reminder.getInvitedReminders);
+    app.put("/reminder/:_id/", verifyToken,  Reminder.edit);
     app.post("/reminder", verifyToken,  Reminder.create);
     app.get("/reminder", verifyToken,  Reminder.get);
     app.delete("/reminder", verifyToken,  Reminder.delete);

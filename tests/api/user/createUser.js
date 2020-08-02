@@ -199,5 +199,30 @@ describe("Create user Negative POST /user", () => {
             .catch((err) => done(err));
     });
 
+    it("errors due to long last name", (done) => {
+        request(app).post("/user")
+            .send({
+                "firstName": "Test name",
+                "lastName": "Test Last Name",
+                "password": "123456",
+                "email": "test@gmail.com"
+            })
+            .then(() => {
+                request(app).post("/user")
+                    .send({
+                        "firstName": "Test name",
+                        "lastName": "Test Last Name",
+                        "password": "123456",
+                        "email": "test@gmail.com"
+                    })
+                    .then((res) => {
+                        const body = res.body;
+                        expect(res.status).to.equals(400);
+                        expect(body.error).to.equals("User with such email has been already registered");
+                        done();
+                    })
+                    .catch((err) => done(err));
+            })
+    });
 });
 
