@@ -3,25 +3,33 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "test": "env-cmd -f .env.test mocha tests/ --recursive --exit",
     "start": "node ./src/app.js",
     "watch": "nodemon ./src/app.js",
-    "prewatch":"fuser -k 4000/tcp && echo 'Terminated' || echo 'Nothing was running on the PORT' && nodemon ./src/app.js"
+    "prewatch": "fuser -k 4000/tcp && echo 'Terminated' || echo 'Nothing was running on the PORT' && nodemon ./src/app.js"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
+    "env-cmd": "^10.1.0",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^8.0.1",
+    "mongodb-memory-server": "^6.6.3",
     "mongoose": "^5.9.22",
     "morgan": "~1.9.1",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "clean-css": ">=4.1.11",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.1.0"
   }
 }
