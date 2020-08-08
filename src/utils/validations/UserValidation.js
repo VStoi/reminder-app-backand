@@ -28,6 +28,15 @@ const loginSchema = Joi.object({
         .required()
 });
 
+const deviceIdSchema = Joi.object({
+    deviceToken: Joi.string()
+        .required()
+        .min(150)
+        .max(200)
+})
+
+
+
 const validateRegistration = (data) => {
     return registerSchema.validate(data)
 };
@@ -35,5 +44,10 @@ const validateLogin = (data) => {
     return loginSchema.validate(data)
 };
 
+const validateDeviceId = (data) => {
+    return deviceIdSchema.validate(data)
+};
+
 module.exports.validateRegistration = validateRegistration;
 module.exports.validateLogin = validateLogin;
+module.exports.validateDeviceId = validateDeviceId;
