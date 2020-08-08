@@ -2,7 +2,11 @@ const User = require('../models/User')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 
-const {validateLogin, validateRegistration} = require('../utils/validations/UserValidation')
+const {
+    validateLogin,
+    validateRegistration,
+    validateDeviceId
+} = require('../utils/validations/UserValidation')
 
 
 class UserController{
@@ -88,7 +92,27 @@ class UserController{
         })
     }
 
-
+    async updateDeviceToken(req, res){
+        const deviceToken = req.body.deviceToken;
+        const {error} = validateDeviceId(req.body);
+        if (error){
+            return res.status(400).json({error: error.details[0].message});
+        }
+        const user = await User.findByIdAndUpdate(req.user._id);
+        if (!user){
+            return res.status(404).json({error: 'Not found'});
+        }
+        user.set({deviceToken: deviceToken});
+        user.save()
+            .then(() => {
+                return res.status(204).json({});
+            })
+            .catch((err) => {
+                return res.status(500).json({
+                    error: err
+                });
+            });
+    }
 }
 
 module.exports = UserController;
