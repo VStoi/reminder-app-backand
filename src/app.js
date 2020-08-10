@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const { createServer } = require("http");
 
 dotenv.config();
@@ -13,6 +14,7 @@ const app = express();
 const http = createServer(app);
 
 app.use(bodyParser.json());
+app.use(cors());
 
 userRouter(app);
 reminderRouter(app);
